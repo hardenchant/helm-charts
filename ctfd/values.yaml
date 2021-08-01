@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ctfd/ctfd
-  tag: mark-3.1.1
+  tag: mark-3.3.1
   pullPolicy: IfNotPresent
 
 env:
@@ -18,7 +18,7 @@ env:
     DATABASE_URL:
     # Redis URI. Example: redis://cache:6379
     REDIS_URL:
-    REVERSE_PROXY: True 
+    REVERSE_PROXY: True
   secret:
     # SQL Database URI. Example: mysql+pymysql://root:ctfd@db/ctfd
     DATABASE_URL:
@@ -39,6 +39,12 @@ persistence:
     # name: value
     # existingClaim:
     # storageClass: "-"
+  s3:
+    enabled: false
+    AWS_ACCESS_KEY_ID: ""
+    AWS_SECRET_ACCESS_KEY: ""
+    AWS_S3_BUCKET: ""
+    AWS_S3_ENDPOINT_URL: ""
 
 
 service:
@@ -48,7 +54,7 @@ service:
   #if service.type = loadbalancer
   # loadBalancerSourceRanges: []
   # loadBalancerIP: ""
-  
+
 probes:
   liveness:
     initialDelaySeconds: 5

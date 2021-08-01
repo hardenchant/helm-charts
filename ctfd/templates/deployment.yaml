@@ -34,6 +34,18 @@ spec:
           - name: UPLOAD_FOLDER
             value: /var/uploads
           {{- end }}
+          {{- if .Values.persistence.s3.enabled }}
+          - name: UPLOAD_PROVIDER
+            value: s3
+          - name: AWS_ACCESS_KEY_ID
+            value: {{ .Values.persistence.s3.AWS_ACCESS_KEY_ID }}
+          - name: AWS_SECRET_ACCESS_KEY
+            value: {{ .Values.persistence.s3.AWS_SECRET_ACCESS_KEY }}
+          - name: AWS_S3_BUCKET
+            value: {{ .Values.persistence.s3.AWS_S3_BUCKET }}
+          - name: AWS_S3_ENDPOINT_URL
+            value: {{ .Values.persistence.s3.AWS_S3_ENDPOINT_URL }}
+          {{- end }}
           {{- if .Values.env.existingSecret }}
             {{- $secret_name := .Values.env.existingSecret }}
             {{- range $name, $key := .Values.env.existingSecretMappings }}
