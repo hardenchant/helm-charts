@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "ctfd.fullname" . }}
+  annotations:
+    {{ - range $key, $value := .Values.deployment.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{ - end }}
   labels:
     app.kubernetes.io/name: {{ include "ctfd.name" . }}
     helm.sh/chart: {{ include "ctfd.chart" . }}
@@ -15,6 +19,10 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        {{ - range $key, $value := .Values.deployment.annotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{ - end }}
       labels:
         app.kubernetes.io/name: {{ include "ctfd.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
